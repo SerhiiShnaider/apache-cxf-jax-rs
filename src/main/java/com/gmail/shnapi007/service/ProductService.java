@@ -2,6 +2,7 @@ package com.gmail.shnapi007.service;
 
 import com.gmail.shnapi007.db.ProductStorage;
 import com.gmail.shnapi007.model.Product;
+import java.util.Random;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,11 +26,23 @@ public class ProductService {
 
   }
 
+  @GET
+  @Path("/products/{id}")
+  @Consumes(MediaType.APPLICATION_JSON)
+  public Response getProduct(@PathParam("id") long id) {
+
+    Product productById = ProductStorage.getProductById(id);
+    return Response.status(200).entity(productById).build();
+
+  }
+
   @POST
   @Path("/products")
   @Consumes(MediaType.APPLICATION_JSON)
   public Response createProduct(Product product) {
 
+    product.setId(new Random().nextInt(9999));
+    ProductStorage.addProduct(product);
     String result = "Product saved : " + product.getId();
     return Response.status(201).entity(result).build();
   }
@@ -41,6 +54,7 @@ public class ProductService {
   public Response createProduct(@PathParam("id") long id, Product product) {
 
     product.setId(id);
+    ProductStorage.addProduct(product);
     String result = "Product saved : " + product.getId();
     return Response.status(201).entity(result).build();
 
@@ -51,6 +65,7 @@ public class ProductService {
   @Consumes(MediaType.APPLICATION_JSON)
   public Response deleteProduct(@PathParam("id") long id) {
 
+    ProductStorage.removeProduct(id);
     String result = "Product deleted : " + id;
     return Response.status(200).entity(result).build();
 

@@ -24,7 +24,7 @@ public class ProductService {
   @GET
   @Path("/products")
   @Produces(MediaType.APPLICATION_JSON)
-  public Response getProducts(@QueryParam("q") String q, @QueryParam("count") String count) {
+  public Response getProducts(@QueryParam("q") String q, @QueryParam("count") int count) {
 
     if (q != null) {
       List<Product> products = new ArrayList(QueryEngine.findByQ(q));
@@ -32,6 +32,10 @@ public class ProductService {
         products = products.subList(0, Config.getIntProperty("maxProductCount"));
       }
       return Response.ok(products).build();
+    }
+
+    if (count != 0) {
+      return Response.ok(ProductStorage.getProducts().subList(0, count)).build();
     }
 
     return Response

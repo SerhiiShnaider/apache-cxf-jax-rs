@@ -18,6 +18,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+// https://www.mkyong.com/tutorials/jax-rs-tutorials/
 @Path("/json")
 public class ProductService {
 

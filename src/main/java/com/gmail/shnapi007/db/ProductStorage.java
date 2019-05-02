@@ -10,7 +10,7 @@ public class ProductStorage {
   private static List<Product> products = new ArrayList<>();
 
   static {
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 100; i++) {
       products.add(ProductCreator.createProduct());
     }
   }

@@ -3,7 +3,9 @@ package com.gmail.shnapi007.model;
 import com.google.common.base.MoreObjects;
 import java.util.List;
 import java.util.Objects;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Product {
 
   private long id;
